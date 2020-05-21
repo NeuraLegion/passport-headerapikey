@@ -1,9 +1,15 @@
 {
-    "version": "1.8.10",
     "compilerOptions": {
+        "target": "es5",
         "module": "commonjs",
         "declaration": true,
-        "outDir": "lib/"
+        "outDir": "lib/",
+        "strict": true,
+        "noEmitOnError": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true
     },
     "files": [
         "./src/index.ts"

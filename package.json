@@ -1,16 +1,27 @@
 {
-  "name": "passport-headerapikey",
+  "name": "@neuralegion/passport-headerapikey",
   "description": "Api key authentication strategy for Passport, which only handles headers (not body fields).",
   "keywords": [
     "apikey",
     "passport",
     "strategy"
   ],
-  "author": "Christian Hotz <hotz@hydra-newmedia.com> ",
-  "version": "1.2.1",
+  "private": false,
+  "author": {
+    "name": "Artem Derevnjuk",
+    "email": "artem.derevnjuk@neuralegion.com"
+  },
+  "version": "0.0.0",
   "repository": {
     "type": "git",
-    "url": "git://github.com/hydra-newmedia/passport-headerapikey.git"
+    "url": "git+https://github.com/NeuraLegion/passport-headerapikey.git"
+  },
+  "bugs": {
+    "url": "https://github.com/NeuraLegion/passport-headerapikey/issues"
+  },
+  "homepage": "https://github.com/NeuraLegion/passport-headerapikey#readme",
+  "publishConfig": {
+    "access": "public"
   },
   "license": "MIT",
   "main": "lib/index",
@@ -19,22 +30,56 @@
     "lib/"
   ],
   "scripts": {
+    "semantic-release": "semantic-release",
     "prepublishOnly": "tsc",
-    "pretest": "tsc && rm -rf testDist/ && tsc --rootDir test --outDir testDist test/**/*.ts",
+    "lint": "eslint -c .eslintrc 'src/**/*.ts'",
+    "pretest": "rm -rf testDist/ && tsc -p test/tsconfig.spec.json",
     "test": "mocha testDist/* -R nyan --recursive"
   },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "lint-staged",
+      "post-commit": "git update-index --again"
+    }
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "lint-staged": {
+    "*.ts": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ]
+  },
   "dependencies": {
-    "lodash": "^4.17.15",
     "passport-strategy": "^1.0.0"
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.144",
-    "@types/mocha": "^5.2.7",
+    "prettier": "^2.0.5",
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
+    "@types/chai": "^4.2.11",
+    "@types/express": "^4.17.6",
+    "@types/mocha": "^7.0.2",
     "@types/passport-strategy": "^0.2.35",
-    "expect.js": "^0.3.1",
+    "@types/sinon": "^9.0.4",
+    "@typescript-eslint/eslint-plugin": "^2.30.0",
+    "@typescript-eslint/parser": "^2.30.0",
+    "chai": "^4.2.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-prefer-arrow": "^1.2.0",
     "express": "^4.17.1",
-    "mocha": "^6.2.2",
-    "sinon": "^1.17.4",
-    "typescript": "^3.0.1"
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.0",
+    "mocha": "^7.1.2",
+    "semantic-release": "^17.0.7",
+    "sinon": "^9.0.2",
+    "typescript": "^3.8.3"
   }
 }
